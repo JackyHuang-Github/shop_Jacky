@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Item;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,10 +17,20 @@ use Illuminate\Support\Facades\Route;
 Route::namespace('App\Http\Controllers')->group(function(){
     Route::get('/', 'SiteController@index');
     Route::get('/shop', 'SiteController@shop');
+    Route::get('/items/{item}','SiteController@productDetail');
+    Route::get('/blog','SiteController@blog');
+    Route::get('/blog-detail','SiteController@blogDetail');
+    Route::get('/contact','SiteController@contact');
+    Route::post('/contacts','SiteController@storeContact');
 });
 
-
+Route::get('picArray', function() {
+    $item = Item::find(13);
+    dd($item->picsArray);
+    // print_r($item->picsArray);
+});
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+

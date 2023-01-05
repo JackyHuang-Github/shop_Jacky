@@ -21,6 +21,11 @@ class Item extends Model
         }else{
             return null;
         }
-        
     }
+
+    public function getPicsArrayAttribute() {
+        $data = json_decode($this->pics, true);
+        return $data;
+    }
+
 }
