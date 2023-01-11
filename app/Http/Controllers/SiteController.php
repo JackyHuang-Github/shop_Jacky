@@ -31,7 +31,12 @@ class SiteController extends Controller
     }
 
     public function blog(){
-        return view('blog');
+        //取得最新消息的所有文章
+        $cgy = Cgy::find(1);
+        //$articles_news = $cgy->articles()->paginate(5);
+        $articles_news = Article::where('cgy_id', 1)->paginate(5);
+        $cgies = Cgy::get();
+        return view('blog', compact('cgy', 'articles_news', 'cgies'));
     }
 
     public function blogDetail(){
@@ -45,12 +50,20 @@ class SiteController extends Controller
     //儲存聯絡單
     public function storeContact(Request $request){
         $contact = Contact::create($request->only('subject','email','message','mobile'));
-        if ($contact){
+        if ($contact) {
             print('儲存成功');
-        }else{
+            // 綠色框，外加關閉按鈕
+            flash('聯絡單建立完成 !!')->success()->important();
+            // 綠色框
+            flash('聯絡單建立完成 !!')->success();
+            // 跳出帶標題視窗
+            flash('跳出視窗 !!')->overlay('Modal Message', 'Modal Title');
+        } else {
             print('儲存失敗');
+            // 紅色框
+            flash('聯絡單建立失敗 !!')->error();
         }
-        return redirect('/admin/contacts');
+        return redirect('contacts');
     }
 
 }

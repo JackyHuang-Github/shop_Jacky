@@ -108,7 +108,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'zh_Tw',
 
     /*
     |--------------------------------------------------------------------------
@@ -212,6 +212,6 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class
     ])->toArray(),
-
 ];
